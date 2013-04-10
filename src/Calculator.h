@@ -7,17 +7,19 @@
 
 #ifndef CALCULATOR_H_
 #define CALCULATOR_H_
+
 #include <string>
 #include <iostream>
 #include <sstream>
 #include <queue>
 #include <stack>
+
 #include "Scanner.h"
 #include "TokenFactory.h"
 
-using namespace std;
-
 const int DEBUG = 0; // 0 = none, 1 = verbose
+
+using namespace std;
 
 class Calculator {
 public:

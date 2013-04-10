@@ -102,19 +102,19 @@ void Calculator::evaluateExpression(queue<Token*> * output) {
 }
 
 void Calculator::applyOperator(stack<Token*> * thestack, OperatorToken * OP) {
-	Token * firstToken = thestack->top();
+	Token * first_token = thestack->top();
 	thestack->pop();
-	Token * secondToken = thestack->top();
+	Token * second_token = thestack->top();
 	thestack->pop();
 
-	int firstNumber = ((NumberToken*) firstToken)->get_num();
-	int secondNumber = ((NumberToken*) secondToken)->get_num();
+	int firstNumber = ((NumberToken*) first_token)->get_num();
+	int secondNumber = ((NumberToken*) second_token)->get_num();
 
 	int resultNumber = ((OperatorToken*) OP)->applyOperator(firstNumber,
 			secondNumber);
 
-	NumberToken * new_number_token = new NumberToken(resultNumber);
-	thestack->push(new_number_token);
+	NumberToken * result_number_token = new NumberToken(resultNumber);
+	thestack->push(result_number_token);
 }
 
 void Calculator::printVectorTokens(queue<Token*> * output) {

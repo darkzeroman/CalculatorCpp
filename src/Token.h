@@ -19,8 +19,8 @@ enum Type {
 	OPERATOR, NUMBER, EOL
 };
 
-const int MULT = 42;
-const int ADD = 43;
+const int ASTERISK_ASCII = 42;
+const int PLUS_ASCII = 43;
 const int SUBTRACT = 45;
 const int DIVIDE = 47;
 const int EOLMARKER = 10;
@@ -39,6 +39,7 @@ public:
 	virtual string toString();
 	virtual ~Token();
 	Type getType() const;
+	bool isOperator();
 protected:
 	Token(Type _type);
 private:

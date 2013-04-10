@@ -36,7 +36,7 @@ queue<Token*> * Calculator::buildExpression() {
 	queue<Token*> * output = new queue<Token*>();
 	stack<Token*> thestack;
 
-	// Shunting-yard algorithm
+	// Shunting-yard algorithm, http://bit.ly/NDNpU
 	unsigned int i = 0;
 
 	while (i < tokens.size()) {
@@ -44,7 +44,7 @@ queue<Token*> * Calculator::buildExpression() {
 			output->push(tokens[i]);
 		} else if (tokens[i]->getType() != EOL) { // leaving only OPERATORS
 			Token* o1 = tokens[i];
-			while (thestack.size() > 0 && isOperator(thestack.top())
+			while (thestack.size() > 0 && thestack.top()->isOperator()
 					&& checkTwoCases((OperatorToken*) o1,
 							(OperatorToken*) thestack.top())) {
 				output->push(thestack.top());
@@ -53,7 +53,7 @@ queue<Token*> * Calculator::buildExpression() {
 			thestack.push(o1);
 
 		} else { //moving the last remaining OPERATORS from queue to stack
-			while (thestack.size() > 0 && isOperator(thestack.top())) {
+			while (thestack.size() > 0 && thestack.top()->isOperator()) {
 				output->push(thestack.top());
 				thestack.pop();
 			}
@@ -87,7 +87,7 @@ void Calculator::evaluateExpression(queue<Token*> * output) {
 			cout << "output next: " << output->front()->toString() << endl;
 		}
 
-		if (isOperator(output->front())) {
+		if (output->front()->isOperator()) {
 			applyOperator(&thestack, (OperatorToken*) output->front());
 		} else {
 			thestack.push(output->front());
@@ -101,20 +101,19 @@ void Calculator::evaluateExpression(queue<Token*> * output) {
 	cout << "Result: " << thestack.top()->toString() << endl;
 }
 
-void Calculator::applyOperator(stack<Token*> * thestack, OperatorToken * OP) {
-	Token * first_token = thestack->top();
-	thestack->pop();
-	Token * second_token = thestack->top();
-	thestack->pop();
+void Calculator::applyOperator(stack<Token*> * the_stack, OperatorToken * OP) {
+	Token * first_token = the_stack->top();
+	the_stack->pop();
+	Token * second_token = the_stack->top();
+	the_stack->pop();
 
-	int firstNumber = ((NumberToken*) first_token)->get_num();
-	int secondNumber = ((NumberToken*) second_token)->get_num();
+	int first_number = ((NumberToken*) first_token)->get_num();
+	int second_number = ((NumberToken*) second_token)->get_num();
 
-	int resultNumber = ((OperatorToken*) OP)->applyOperator(firstNumber,
-			secondNumber);
+	int result_number = ((OperatorToken*) OP)->apply(first_number, second_number);
 
-	NumberToken * result_number_token = new NumberToken(resultNumber);
-	thestack->push(result_number_token);
+	NumberToken * result_number_token = new NumberToken(result_number);
+	the_stack->push(result_number_token);
 }
 
 void Calculator::printVectorTokens(queue<Token*> * output) {
@@ -124,10 +123,6 @@ void Calculator::printVectorTokens(queue<Token*> * output) {
 		cout << "Type: " << token->getType() << " , " << token << endl;
 		output->pop();
 	}
-}
-
-bool Calculator::isOperator(Token * token) {
-	return (token->getType() == OPERATOR);
 }
 
 int Calculator::getPrecedence(OperatorToken * token) {

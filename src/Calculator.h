@@ -34,7 +34,6 @@ private:
 	int getPrecedence(OperatorToken * token);
 	int getAssociativity(OperatorToken * token);
 	bool isLeftAssoc(OperatorToken * token);
-	bool isOperator(Token * token);
 	bool lessThan(OperatorToken * first, OperatorToken * second);
 	bool lessThanOrEqualTo(OperatorToken * first, OperatorToken * second);
 	bool checkTwoCases(OperatorToken * o1, OperatorToken * o2);

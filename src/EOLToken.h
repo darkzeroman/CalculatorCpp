@@ -2,7 +2,7 @@
  * EOLToken.h
  *
  *  Created on: Apr 3, 2013
- *      Author: darkzeroman
+ *      Author: Vidhur Vohra
  */
 
 #ifndef EOLTOKEN_H_

@@ -17,7 +17,7 @@ enum OperatorType {
 class OperatorToken: public Token {
 public:
 	OperatorToken(OperatorType _operator_type);
-	int applyOperator(int first, int second);
+	int apply(int first, int second);
 	string toString();
 	virtual ~OperatorToken();
 private:

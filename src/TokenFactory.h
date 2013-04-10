@@ -2,7 +2,7 @@
  * TokenFactory.h
  *
  *  Created on: Apr 8, 2013
- *      Author: darkzeroman
+ *      Author: Vidhur Vohra
  */
 
 #ifndef TOKENFACTORY_H_
@@ -16,11 +16,11 @@
 class TokenFactory {
 public:
 	static Token * makeToken(char input_char) {
-		if (input_char == MULT) {
+		if (input_char == ASTERISK_ASCII) {
 			return new OperatorToken(MULTOP);
 		} else if (input_char == DIVIDE) {
 			return new OperatorToken(DIVIDEOP);
-		} else if (input_char == ADD) {
+		} else if (input_char == PLUS_ASCII) {
 			return new OperatorToken(ADDOP);
 		} else if (input_char == SUBTRACT) {
 			return new OperatorToken(SUBTRACTOP);

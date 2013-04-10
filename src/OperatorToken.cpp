@@ -14,7 +14,7 @@ OperatorToken::OperatorToken(OperatorType _operator_type) :
 OperatorToken::~OperatorToken() {
 }
 
-int OperatorToken::applyOperator(int first, int second) {
+int OperatorToken::apply(int first, int second) {
 	if (operator_type == ADDOP) {
 		return first + second;
 	} else if (operator_type == SUBTRACTOP) {

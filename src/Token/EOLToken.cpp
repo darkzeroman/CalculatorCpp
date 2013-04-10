@@ -8,13 +8,13 @@
 #include "EOLToken.h"
 
 EOLToken::EOLToken() :
-		Token(EOL) {
+  Token(EOL) {
 }
 
 EOLToken::~EOLToken() {
 }
 
 string EOLToken::toString() {
-	return "EOL";
+ return "EOL";
 }
 

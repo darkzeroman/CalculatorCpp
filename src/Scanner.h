@@ -15,17 +15,14 @@
 
 #include "Token/TokenFactory.h"
 
-using namespace std;
-
 class Scanner {
-
-public:
-	Scanner();
-	virtual ~Scanner();
-	// Returns a vector of token pointers, represents one line
-	vector<Token*> getTokens();
-private:
-	Token * getNextToken();
+ public:
+  Scanner();
+  virtual ~Scanner();
+  // Returns a vector of token pointers, represents one line
+  vector<Token*> getTokens();
+ private:
+  Token * getNextToken();
 };
 
-#endif /* SCANNER_H_ */
+#endif  // SRC_SCANNER_H_

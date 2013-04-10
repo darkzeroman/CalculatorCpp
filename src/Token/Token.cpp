@@ -8,24 +8,24 @@
 #include "Token.h"
 
 Token::Token(TokenType _type) :
-		type(_type) {
+  type(_type) {
 }
 Token::~Token() {
 }
 
 TokenType Token::getType() const {
-	return type;
+ return type;
 }
 
 string Token::toString() {
-	return "Just Normal Token";
+ return "Just Normal Token";
 }
 
 bool Token::isOperator() {
-	return (type == OPERATOR);
+ return (type == OPERATOR);
 }
 
 bool Token::isNumber() {
-	return (type == NUMBER);
+ return (type == NUMBER);
 }
 

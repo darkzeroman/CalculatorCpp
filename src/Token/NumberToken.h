@@ -13,18 +13,16 @@
 
 #include "Token.h"
 
-using namespace std;
-
 class NumberToken: public Token {
-public:
-	NumberToken(int _num);
-	virtual ~NumberToken();
-	const int get_num();
-	void set_num(int _num);
-	string toString();
+ public:
+  NumberToken(int _num);
+  virtual ~NumberToken();
+  const int get_num();
+  void set_num(int _num);
+  string toString();
 
-private:
-	int num;
+ private:
+  int num;
 };
 
 #endif /* NUMBERTOKEN_H_ */

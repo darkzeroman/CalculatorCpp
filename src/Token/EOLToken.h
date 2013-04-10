@@ -11,10 +11,10 @@
 #include "Token.h"
 
 class EOLToken: public Token {
-public:
-	EOLToken();
-	virtual ~EOLToken();
-	string toString();
+ public:
+  EOLToken();
+  virtual ~EOLToken();
+  string toString();
 };
 
 #endif /* EOLTOKEN_H_ */

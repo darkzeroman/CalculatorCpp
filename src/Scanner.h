@@ -20,7 +20,7 @@ using namespace std;
 class Scanner {
 
 public:
-//	Scanner(){};
+	Scanner();
 	virtual ~Scanner();
 	Token * getNextToken();
 	vector<Token*> getTokens();

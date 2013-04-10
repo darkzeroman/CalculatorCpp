@@ -18,7 +18,6 @@ class NumberToken: public Token {
   NumberToken(int _num);
   virtual ~NumberToken();
   const int get_num();
-  void set_num(int _num);
   string toString();
 
  private:

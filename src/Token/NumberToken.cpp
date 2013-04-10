@@ -17,9 +17,6 @@ NumberToken::~NumberToken() {
 const int NumberToken::get_num() {
  return num;
 }
-void NumberToken::set_num(int _num) {
- this->num = _num;
-}
 
 string NumberToken::toString() {
  stringstream ss;

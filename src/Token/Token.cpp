@@ -5,7 +5,7 @@
  *      Author: Vidhur Vohra
  */
 
-#include "Token.h"
+#include "./Token.h"
 
 Token::Token(TokenType _type) :
   type(_type) {

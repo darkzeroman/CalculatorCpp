@@ -16,7 +16,7 @@
 using std::string;
 
 enum TokenType {
- OPERATOR, NUMBER, EOL
+  OPERATOR, NUMBER, EOL
 };
 
 const int ASTERISK_ASCII = 42;
@@ -32,16 +32,16 @@ const int NUMBERS_ASCII_MAX = 57;
 using namespace std;
 
 class Token {
- public:
+public:
   virtual ~Token();
   TokenType getType() const;
   virtual string toString();
   bool isOperator();
   bool isNumber();
 
- protected:
+protected:
   Token(TokenType _type);
- private:
+private:
   TokenType type;
 };
 

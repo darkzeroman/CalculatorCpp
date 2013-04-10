@@ -5,28 +5,29 @@
  *      Author: Vidhur Vohra
  */
 
-#ifndef CALCULATOR_H_
-#define CALCULATOR_H_
+#ifndef SRC_CALCULATOR_H_
+#define SRC_CALCULATOR_H_
 
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <vector>
 #include <queue>
 #include <stack>
 #include <exception>
 
-#include "Scanner.h"
-#include "Token/TokenFactory.h"
+#include "./Scanner.h"
+#include "./Token/TokenFactory.h"
 
-const int DEBUG = 0; // 0 = no messages, 1 = debug messages
+const int DEBUG = 0;  // 0 = no messages, 1 = debug messages
 
 class Calculator {
- public:
+public:
   Calculator();
   virtual ~Calculator();
   void calculate();
 
- private:
+private:
   queue<Token*> buildExpression();
   void evaluateExpression(queue<Token*> output);
   void applyOperator(stack<Token*> * thestack, OperatorToken * OP);
@@ -40,4 +41,4 @@ class Calculator {
   Scanner scan;
 };
 
-#endif /* CALCULATOR_H_ */
+#endif  // SRC_CALCULATOR_H_

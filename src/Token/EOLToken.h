@@ -8,7 +8,7 @@
 #ifndef EOLTOKEN_H_
 #define EOLTOKEN_H_
 
-#include "Token.h"
+#include "./Token.h"
 
 class EOLToken: public Token {
  public:

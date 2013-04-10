@@ -13,7 +13,7 @@
 #include <sstream>
 #include <vector>
 
-#include "Token/TokenFactory.h"
+#include "./Token/TokenFactory.h"
 
 class Scanner {
  public:

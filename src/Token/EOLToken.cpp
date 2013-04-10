@@ -5,7 +5,7 @@
  *      Author: Vidhur Vohra
  */
 
-#include "EOLToken.h"
+#include "./EOLToken.h"
 
 EOLToken::EOLToken() :
   Token(EOL) {

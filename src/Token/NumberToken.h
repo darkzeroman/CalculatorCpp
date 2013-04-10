@@ -11,7 +11,7 @@
 #include <iostream>
 #include <istream>
 
-#include "Token.h"
+#include "./Token.h"
 
 class NumberToken: public Token {
  public:

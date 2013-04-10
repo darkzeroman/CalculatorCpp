@@ -4,15 +4,19 @@ Background:
 
 I am an experienced software developer who is taking a class on C++. The idea for this project was a homework which I have added to.
 
-I am also learning about standard naming conventions. Currently the naming convention is camel casing for methods and undercase with underscore for variable names.
+Currently the naming convention is camel casing for methods and undercase with underscore for variable names.
 
 This is a simple calculator that accepts Numbers and Add/Multiplication/Subtract/Division.
 
 Expressions are evaluated by the shunting yard algorithm, which converts infix expressions to postfix expressions. Pseudocode: http://bit.ly/NDNpU
 
+Random Notes:
+- Numbers should be within the int range.
+- Used Google's cpplint and cppchecker
+
 Includes the classes:
 
-Calculator: Main class which calls the scanner to build and evaluate an expression.
+Calculator: Main class which calls the scanner to build and evaluate an expression of tokens.
 Scanner: Reads from stdin and creates tokens.
 Token: Base class for NumberToken, OperatorToken, EOLToken
 TokenFactory: has static methods which creates the appropriate type of tokens

@@ -5,7 +5,7 @@
  *      Author: Vidhur Vohra
  */
 
-#include "OperatorToken.h"
+#include "./OperatorToken.h"
 
 OperatorToken::OperatorToken(OperatorType _operator_type) :
   Token(OPERATOR), operator_type(_operator_type) {

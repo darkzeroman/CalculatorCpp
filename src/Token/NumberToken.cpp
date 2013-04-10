@@ -5,7 +5,7 @@
  *      Author: Vidhur Vohra
  */
 
-#include "NumberToken.h"
+#include "./NumberToken.h"
 
 NumberToken::NumberToken(int _num) :
   Token(NUMBER), num(_num) {

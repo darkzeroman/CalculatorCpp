@@ -8,7 +8,7 @@
 #ifndef OPERATIONTOKEN_H_
 #define OPERATIONTOKEN_H_
 
-#include "Token.h"
+#include "./Token.h"
 
 enum OperatorType {
  ADDOP, SUBTRACTOP, DIVIDEOP, MULTOP

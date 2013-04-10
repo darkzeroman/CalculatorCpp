@@ -28,3 +28,4 @@ bool Token::isOperator() {
 bool Token::isNumber() {
 	return (type == NUMBER);
 }
+

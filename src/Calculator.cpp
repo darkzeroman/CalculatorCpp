@@ -20,6 +20,7 @@ Calculator::~Calculator() {
 }
 
 void Calculator::calculate() {
+	// Main loop for calculator. Builds expression and then evaluates.
 	cout << "Welcome to the High Order Calculator (q to quit) " << endl;
 	while (true) {
 		try {
@@ -47,7 +48,7 @@ queue<Token*> Calculator::buildExpression() {
 		cout << tokens.size() << endl;
 	}
 
-	queue<Token*> output;
+	queue<Token*> output; // Holds the expression
 	stack<Token*> the_stack;
 
 	if (tokens.size() == 1 && tokens[0]->getType() == EOL) {
@@ -60,19 +61,21 @@ queue<Token*> Calculator::buildExpression() {
 	unsigned int i = 0;
 
 	while (i < tokens.size()) {
-		if (tokens[i]->getType() == NUMBER) {
+		if (tokens[i]->isNumber() == NUMBER) {
 			output.push(tokens[i]);
-		} else if (tokens[i]->getType() != EOL) { // leaving only OPERATORS
-			Token* o1 = tokens[i];
+
+		} else if (tokens[i]->isOperator()) {
+			OperatorToken* o1 = (OperatorToken*) tokens[i];
+
 			while (the_stack.size() > 0 && the_stack.top()->isOperator()
-					&& checkTwoCases((OperatorToken*) o1,
-							(OperatorToken*) the_stack.top())) {
+					&& checkTwoCases(o1, (OperatorToken*) the_stack.top())) {
 				output.push(the_stack.top());
 				the_stack.pop();
 			}
 			the_stack.push(o1);
 
-		} else { //moving the last remaining OPERATORS from queue to stack
+		} else { // EOL
+			//moving the last remaining OPERATORS from queue to stack
 			while (the_stack.size() > 0 && the_stack.top()->isOperator()) {
 				output.push(the_stack.top());
 				the_stack.pop();
@@ -84,8 +87,9 @@ queue<Token*> Calculator::buildExpression() {
 }
 
 void Calculator::evaluateExpression(queue<Token*> output) {
-	stack<Token*> thestack;
+	// The shunting-yard algorithm, evaluating the expression, check the pseudocode
 
+	stack<Token*> thestack;
 	while (output.size() > 0) {
 		if (DEBUG) {
 			cout << "output next: " << output.front()->toString() << endl;
@@ -106,7 +110,7 @@ void Calculator::evaluateExpression(queue<Token*> output) {
 }
 
 void Calculator::applyOperator(stack<Token*> * the_stack, OperatorToken * OP) {
-
+	// Apply the OperatorToken OP to the top two elements in the stack
 	Token * first_token = the_stack->top();
 	the_stack->pop();
 
@@ -138,6 +142,8 @@ void Calculator::printQueueTokens(queue<Token*> output) {
 	}
 }
 
+// Everything below are methods described from the pseudocode
+
 int Calculator::getPrecedence(OperatorToken * token) {
 	if (token->getType() == OPERATOR)
 		return 3;
@@ -163,6 +169,7 @@ bool Calculator::lessThan(OperatorToken * first, OperatorToken * second) {
 }
 
 bool Calculator::checkTwoCases(OperatorToken * o1, OperatorToken * o2) {
-	return ((isLeftAssociative(o1) && lessThanOrEqualTo(o1, o2)) || (lessThan(o1, o2)));
+	return ((isLeftAssociative(o1) && lessThanOrEqualTo(o1, o2))
+			|| (lessThan(o1, o2)));
 }
 

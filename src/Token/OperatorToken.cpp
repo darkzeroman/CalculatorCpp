@@ -33,7 +33,7 @@ int OperatorToken::apply(int first, int second) {
 }
 
 string OperatorToken::toString() {
-	switch (this->operator_type) {
+	switch (operator_type) {
 	case ADDOP:
 		return "Addition";
 		break;

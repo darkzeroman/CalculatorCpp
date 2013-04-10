@@ -13,7 +13,7 @@
 #include <sstream>
 #include <vector>
 
-#include "TokenFactory.h"
+#include "Token/TokenFactory.h"
 
 using namespace std;
 

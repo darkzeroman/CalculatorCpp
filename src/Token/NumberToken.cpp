@@ -26,3 +26,4 @@ string NumberToken::toString() {
 	ss << num;
 	return ss.str();
 }
+

@@ -16,7 +16,7 @@
 #include <exception>
 
 #include "Scanner.h"
-#include "TokenFactory.h"
+#include "Token/TokenFactory.h"
 
 const int DEBUG = 0; // 0 = none, 1 = verbose
 

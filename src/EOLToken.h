@@ -12,16 +12,9 @@
 
 class EOLToken: public Token {
 public:
-	EOLToken() :
-			Token(EOL) {
-	}
-	;
-	virtual ~EOLToken() {
-	}
-	;
-	string toString() {
-		return "EOL";
-	}
+	EOLToken();
+	virtual ~EOLToken();
+	string toString();
 };
 
 #endif /* EOLTOKEN_H_ */

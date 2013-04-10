@@ -12,6 +12,10 @@ int main() {
 	calculator.calculate();
 }
 
+Calculator::Calculator() :
+		scan() {
+}
+
 Calculator::~Calculator() {
 }
 
@@ -32,7 +36,7 @@ queue<Token*> * Calculator::buildExpression() {
 	queue<Token*> * output = new queue<Token*>();
 	stack<Token*> thestack;
 
-	// Shunting algorithm
+	// Shunting-yard algorithm
 	unsigned int i = 0;
 
 	while (i < tokens.size()) {

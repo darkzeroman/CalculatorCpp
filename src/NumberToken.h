@@ -17,25 +17,12 @@ using namespace std;
 
 class NumberToken: public Token {
 public:
-	NumberToken(int _num) :
-			Token(NUMBER), num(_num) {
-	}
+	NumberToken(int _num);
+	virtual ~NumberToken();
+	const int get_num();
+	void set_num(int _num);
 
-	virtual ~NumberToken() {
-	}
-
-	const int get_num() {
-		return num;
-	}
-	void set_num(int _num) {
-		this->num = _num;
-	}
-
-	string toString() {
-		stringstream ss;
-		ss << num;
-		return ss.str();
-	}
+	string toString();
 
 private:
 	int num;

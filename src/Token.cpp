@@ -10,3 +10,15 @@
 Token::~Token() {
 }
 
+string Token::toString() {
+	return "Token";
+}
+
+Type Token::getType() const {
+	return type;
+}
+
+Token::Token(Type _type) :
+		type(_type) {
+}
+

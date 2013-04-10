@@ -21,10 +21,7 @@ const int DEBUG = 0; // 0 = none, 1 = verbose
 
 class Calculator {
 public:
-	Calculator() :
-			scan() {
-	}
-
+	Calculator();
 	virtual ~Calculator();
 	void calculate();
 
@@ -40,11 +37,7 @@ private:
 	bool lessThanOrEqualTo(OperatorToken * first, OperatorToken * second);
 	bool checkTwoCases(OperatorToken * o1, OperatorToken * o2);
 	void printVectorTokens(queue<Token*> * tokens);
-	int stringToInt(string str);
-	string intToString(int value);
-
 	Scanner scan;
-
 };
 
 #endif /* CALCULATOR_H_ */

@@ -36,20 +36,11 @@ class OperatorToken;
 
 class Token {
 public:
-	virtual string toString() {
-		return "Token";
-	}
+	virtual string toString();
 	virtual ~Token();
-
-	Type getType() const {
-		return type;
-	}
-
+	Type getType() const;
 protected:
-	Token(Type _type) :
-			type(_type) {
-	}
-
+	Token(Type _type);
 private:
 	Type type;
 

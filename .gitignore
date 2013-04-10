@@ -1,2 +1,18 @@
+<<<<<<< HEAD
 Debug
 .DS_Store
+=======
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+>>>>>>> 58282e7de7773a25395ac6f346d5ae7615f082db

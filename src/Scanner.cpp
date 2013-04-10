@@ -50,6 +50,9 @@ vector<Token*> Scanner::getTokens() {
 	}
 
 	if (is_invalid) {
+		for (int i = 0; i < tokens.size(); ++i)
+			delete tokens[i];
+
 		throw "Invalid Character Present in this Line";
 	}
 	return tokens;

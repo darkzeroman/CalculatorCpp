@@ -51,7 +51,8 @@ queue<Token*> Calculator::buildExpression() {
 	queue<Token*> output; // Holds the expression
 	stack<Token*> the_stack;
 
-	if (tokens.size() == 1 && tokens[0]->getType() == EOL) {
+	if (tokens.size() == 1
+			&& (tokens[0]->getType() == EOL || tokens[0]->isNumber())) {
 		output.push(tokens.front());
 		return output; // got q command, so exit
 	}
@@ -88,35 +89,54 @@ queue<Token*> Calculator::buildExpression() {
 
 void Calculator::evaluateExpression(queue<Token*> output) {
 	// The shunting-yard algorithm, evaluating the expression, check the pseudocode
-
 	stack<Token*> thestack;
-	while (output.size() > 0) {
-		if (DEBUG) {
-			cout << "output next: " << output.front()->toString() << endl;
+
+	try {
+		while (output.size() > 0) {
+			if (DEBUG) {
+				cout << "output next: " << output.front()->toString() << endl;
+			}
+
+			if (output.front()->isOperator()) {
+				applyOperator(&thestack, (OperatorToken*) output.front());
+			} else {
+				thestack.push(output.front());
+			}
+			output.pop();
 		}
 
-		if (output.front()->isOperator()) {
-			applyOperator(&thestack, (OperatorToken*) output.front());
-		} else {
-			thestack.push(output.front());
+		if (DEBUG)
+			cout << "stack size: " << thestack.size() << endl;
+
+		cout << "Result: " << thestack.top()->toString() << endl;
+	} catch (const char* msg) {
+		for (unsigned int i = 0; i < output.size(); ++i) {
+			Token* to_delete = output.front();
+			output.pop();
+			delete to_delete;
 		}
-		output.pop();
+
+		while (!thestack.empty()) {
+			Token * to_delete = thestack.top();
+			thestack.pop();
+			delete to_delete;
+		}
+
+		throw msg;
+
 	}
 
-	if (DEBUG)
-		cout << "stack size: " << thestack.size() << endl;
-
-	cout << "Result: " << thestack.top()->toString() << endl;
 }
 
 void Calculator::applyOperator(stack<Token*> * the_stack, OperatorToken * OP) {
 	// Apply the OperatorToken OP to the top two elements in the stack
+
+	if (the_stack->size() < 2) {
+		throw "Invalid Expression";
+	}
 	Token * first_token = the_stack->top();
 	the_stack->pop();
 
-	if (the_stack->empty()) {
-		throw "Invalid Expression";
-	}
 	Token * second_token = the_stack->top();
 	the_stack->pop();
 
@@ -128,6 +148,9 @@ void Calculator::applyOperator(stack<Token*> * the_stack, OperatorToken * OP) {
 
 	int result_number = ((OperatorToken*) OP)->apply(first_number,
 			second_number);
+
+	delete first_token;
+	delete second_token;
 
 	NumberToken * result_number_token = new NumberToken(result_number);
 	the_stack->push(result_number_token);

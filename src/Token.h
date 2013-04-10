@@ -15,36 +15,34 @@
 
 using std::string;
 
-enum Type {
+enum TokenType {
 	OPERATOR, NUMBER, EOL
 };
 
 const int ASTERISK_ASCII = 42;
 const int PLUS_ASCII = 43;
-const int SUBTRACT = 45;
-const int DIVIDE = 47;
-const int EOLMARKER = 10;
-const int SPACE = 32;
-const int EOL2 = 113;
-const int NUMBERS_ASCII = 48;
-//const int NUMBERS_ASCII_MAX = 57;
+const int MINUS_ASCII = 45;
+const int FORWARD_SLASH_ASCII = 47;
+const int NEW_LINE_ASCII = 10;
+const int SPACE_ASCII = 32;
+const int Q_ASCII = 113;
+const int NUMBERS_ASCII_MIN = 48;
+const int NUMBERS_ASCII_MAX = 57;
 
 using namespace std;
 
-class NumberToken;
-class OperatorToken;
-
 class Token {
 public:
-	virtual string toString();
 	virtual ~Token();
-	Type getType() const;
+	TokenType getType() const;
+	virtual string toString();
 	bool isOperator();
-protected:
-	Token(Type _type);
-private:
-	Type type;
+	bool isNumber();
 
+protected:
+	Token(TokenType _type);
+private:
+	TokenType type;
 };
 
 #endif /* TOKEN_H_ */

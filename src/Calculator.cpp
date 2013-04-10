@@ -19,7 +19,24 @@ Calculator::Calculator() :
 Calculator::~Calculator() {
 }
 
-queue<Token*> * Calculator::buildExpression() {
+void Calculator::calculate() {
+	cout << "Welcome to the High Order Calculator (q to quit) " << endl;
+	while (true) {
+		try {
+			queue<Token*> expression = buildExpression();
+
+			if ((expression.size() && expression.front()->getType() == EOL)) {
+				break;
+			}
+			evaluateExpression(expression);
+		} catch (const char* msg) {
+			cout << msg << endl;
+		}
+	}
+
+	cout << "Quitting" << endl;
+}
+queue<Token*> Calculator::buildExpression() {
 	vector<Token*> tokens = scan.getTokens();
 
 	if (DEBUG) {
@@ -30,69 +47,56 @@ queue<Token*> * Calculator::buildExpression() {
 		cout << tokens.size() << endl;
 	}
 
-	if (tokens.size() == 1 && tokens[0]->getType() == EOL)
-		return new queue<Token*>(); // got q command, so exit
+	queue<Token*> output;
+	stack<Token*> the_stack;
 
-	queue<Token*> * output = new queue<Token*>();
-	stack<Token*> thestack;
+	if (tokens.size() == 1 && tokens[0]->getType() == EOL) {
+		output.push(tokens.front());
+		return output; // got q command, so exit
+	}
 
 	// Shunting-yard algorithm, http://bit.ly/NDNpU
+	// Have named the queue and vector appropriately so following code follows pseudocode
 	unsigned int i = 0;
 
 	while (i < tokens.size()) {
 		if (tokens[i]->getType() == NUMBER) {
-			output->push(tokens[i]);
+			output.push(tokens[i]);
 		} else if (tokens[i]->getType() != EOL) { // leaving only OPERATORS
 			Token* o1 = tokens[i];
-			while (thestack.size() > 0 && thestack.top()->isOperator()
+			while (the_stack.size() > 0 && the_stack.top()->isOperator()
 					&& checkTwoCases((OperatorToken*) o1,
-							(OperatorToken*) thestack.top())) {
-				output->push(thestack.top());
-				thestack.pop();
+							(OperatorToken*) the_stack.top())) {
+				output.push(the_stack.top());
+				the_stack.pop();
 			}
-			thestack.push(o1);
+			the_stack.push(o1);
 
 		} else { //moving the last remaining OPERATORS from queue to stack
-			while (thestack.size() > 0 && thestack.top()->isOperator()) {
-				output->push(thestack.top());
-				thestack.pop();
+			while (the_stack.size() > 0 && the_stack.top()->isOperator()) {
+				output.push(the_stack.top());
+				the_stack.pop();
 			}
 		}
 		i++;
 	}
-
 	return output;
 }
 
-void Calculator::calculate() {
-	cout << "Welcome to the High Order Calculator (q to quit) " << endl;
-
-	while (true) {
-		queue<Token*> * expression = buildExpression();
-
-		if ((expression->size() && expression->front()->getType() == EOL)
-				|| (expression->size() == 0)) {
-			break;
-		}
-		evaluateExpression(expression);
-	}
-
-	cout << "Quitting" << endl;
-}
-void Calculator::evaluateExpression(queue<Token*> * output) {
+void Calculator::evaluateExpression(queue<Token*> output) {
 	stack<Token*> thestack;
 
-	while (output->size() > 0) {
+	while (output.size() > 0) {
 		if (DEBUG) {
-			cout << "output next: " << output->front()->toString() << endl;
+			cout << "output next: " << output.front()->toString() << endl;
 		}
 
-		if (output->front()->isOperator()) {
-			applyOperator(&thestack, (OperatorToken*) output->front());
+		if (output.front()->isOperator()) {
+			applyOperator(&thestack, (OperatorToken*) output.front());
 		} else {
-			thestack.push(output->front());
+			thestack.push(output.front());
 		}
-		output->pop();
+		output.pop();
 	}
 
 	if (DEBUG)
@@ -102,26 +106,35 @@ void Calculator::evaluateExpression(queue<Token*> * output) {
 }
 
 void Calculator::applyOperator(stack<Token*> * the_stack, OperatorToken * OP) {
+
 	Token * first_token = the_stack->top();
 	the_stack->pop();
+
+	if (the_stack->empty()) {
+		throw "Invalid Expression";
+	}
 	Token * second_token = the_stack->top();
 	the_stack->pop();
 
+	if (!(first_token->isNumber() && second_token->isNumber())) {
+		throw "Invalid Expression";
+	}
 	int first_number = ((NumberToken*) first_token)->get_num();
 	int second_number = ((NumberToken*) second_token)->get_num();
 
-	int result_number = ((OperatorToken*) OP)->apply(first_number, second_number);
+	int result_number = ((OperatorToken*) OP)->apply(first_number,
+			second_number);
 
 	NumberToken * result_number_token = new NumberToken(result_number);
 	the_stack->push(result_number_token);
 }
 
-void Calculator::printVectorTokens(queue<Token*> * output) {
-	cout << "Vector size: " << output->size() << endl;
-	while (output->size() > 0) {
-		Token * token = output->front();
+void Calculator::printQueueTokens(queue<Token*> output) {
+	cout << "Queue size: " << output.size() << endl;
+	while (output.size() > 0) {
+		Token * token = output.front();
 		cout << "Type: " << token->getType() << " , " << token << endl;
-		output->pop();
+		output.pop();
 	}
 }
 
@@ -136,7 +149,7 @@ int Calculator::getAssociativity(OperatorToken * token) {
 	return -1; // for now, ADDOP and MULTOP have the same associativity, so return -1
 }
 
-bool Calculator::isLeftAssoc(OperatorToken * token) {
+bool Calculator::isLeftAssociative(OperatorToken * token) {
 	return (getAssociativity(token) == -1);
 }
 
@@ -150,6 +163,6 @@ bool Calculator::lessThan(OperatorToken * first, OperatorToken * second) {
 }
 
 bool Calculator::checkTwoCases(OperatorToken * o1, OperatorToken * o2) {
-	return ((isLeftAssoc(o1) && lessThanOrEqualTo(o1, o2)) || (lessThan(o1, o2)));
+	return ((isLeftAssociative(o1) && lessThanOrEqualTo(o1, o2)) || (lessThan(o1, o2)));
 }
 

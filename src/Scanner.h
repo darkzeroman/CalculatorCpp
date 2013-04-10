@@ -22,8 +22,10 @@ class Scanner {
 public:
 	Scanner();
 	virtual ~Scanner();
-	Token * getNextToken();
+	// Returns a vector of token pointers, represents one line
 	vector<Token*> getTokens();
+private:
+	Token * getNextToken();
 };
 
 #endif /* SCANNER_H_ */

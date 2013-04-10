@@ -7,13 +7,13 @@
 
 #include "Token.h"
 
-Token::Token(Type _type) :
+Token::Token(TokenType _type) :
 		type(_type) {
 }
 Token::~Token() {
 }
 
-Type Token::getType() const {
+TokenType Token::getType() const {
 	return type;
 }
 
@@ -23,4 +23,8 @@ string Token::toString() {
 
 bool Token::isOperator() {
 	return (type == OPERATOR);
+}
+
+bool Token::isNumber() {
+	return (type == NUMBER);
 }

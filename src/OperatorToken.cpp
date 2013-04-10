@@ -15,14 +15,19 @@ OperatorToken::~OperatorToken() {
 }
 
 int OperatorToken::apply(int first, int second) {
-	if (operator_type == ADDOP) {
+	switch (operator_type) {
+	case ADDOP:
 		return first + second;
-	} else if (operator_type == SUBTRACTOP) {
+		break;
+	case SUBTRACTOP:
 		return second - first;
-	} else if (operator_type == DIVIDEOP) {
+		break;
+	case DIVIDEOP:
 		return second / first;
-	} else if (operator_type == MULTOP) {
+		break;
+	case MULTOP:
 		return first * second;
+		break;
 	}
 	return 0;
 }

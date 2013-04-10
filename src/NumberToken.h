@@ -21,7 +21,6 @@ public:
 	virtual ~NumberToken();
 	const int get_num();
 	void set_num(int _num);
-
 	string toString();
 
 private:

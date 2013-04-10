@@ -13,6 +13,7 @@
 #include <sstream>
 #include <queue>
 #include <stack>
+#include <exception>
 
 #include "Scanner.h"
 #include "TokenFactory.h"
@@ -28,16 +29,16 @@ public:
 	void calculate();
 
 private:
-	queue<Token*> * buildExpression();
-	void evaluateExpression(queue<Token*> * output);
+	queue<Token*> buildExpression();
+	void evaluateExpression(queue<Token*> output);
 	void applyOperator(stack<Token*> * thestack, OperatorToken * OP);
 	int getPrecedence(OperatorToken * token);
 	int getAssociativity(OperatorToken * token);
-	bool isLeftAssoc(OperatorToken * token);
+	bool isLeftAssociative(OperatorToken * token);
 	bool lessThan(OperatorToken * first, OperatorToken * second);
 	bool lessThanOrEqualTo(OperatorToken * first, OperatorToken * second);
 	bool checkTwoCases(OperatorToken * o1, OperatorToken * o2);
-	void printVectorTokens(queue<Token*> * tokens);
+	void printQueueTokens(queue<Token*> tokens);
 	Scanner scan;
 };
 
